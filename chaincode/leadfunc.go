@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	."fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -11,12 +12,12 @@ func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, sal
 	id = uuid.New().String()
 	createTime := time.Now().Unix()
 	lead := Lead{
-		DocType:  LEAD,
-		ID:       id,
-		Update:   make(map[int64]string),
+		DocType: LEAD,
+		ID:      id,
 	}
 
-	lead.Update[createTime] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = createTime
 
 	lead.Saluation = salutation
 	lead.FirstName = fname
@@ -38,11 +39,11 @@ func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,
 	id = uuid.New().String()
 	createTime := time.Now().Unix()
 	lead := Lead{
-		DocType:  LEAD,
-		ID:       id,
-		Update:   make(map[int64]string),
+		DocType: LEAD,
+		ID:      id,
 	}
-	lead.Update[createTime] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = createTime
 
 	lead.JobTitle = title
 	lead.Saluation = salutation
@@ -68,3 +69,17 @@ func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,
 	return id
 
 }
+
+func (c *Chaincode) DeleteLead(ctx CustomTransactionContextInterface, id, requester string) error {
+	existing := ctx.GetData()
+	if existing == nil {
+		return Errorf("Key with %v doesn't exists", id)
+	}
+	var lead Lead
+	json.Unmarshal(existing, &lead)
+	if lead.Owner != requester {
+		Errorf("Unauthorized to Delete this lead ")
+	}
+	return ctx.GetStub().DelState(id)
+}
+

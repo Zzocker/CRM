@@ -16,7 +16,8 @@ func (c *Chaincode) UpdateName(ctx CustomTransactionContextInterface, id, Saluat
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Saluation = Saluation
 	lead.FirstName = fname
@@ -37,7 +38,8 @@ func (c *Chaincode) UpdateJobTitle(ctx CustomTransactionContextInterface, id, Ne
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.JobTitle = NewUp
 
@@ -56,7 +58,8 @@ func (c *Chaincode) UpdatePhone(ctx CustomTransactionContextInterface, id, NewUp
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Phone = NewUp
 
@@ -75,7 +78,8 @@ func (c *Chaincode) UpdateMobile(ctx CustomTransactionContextInterface, id, NewU
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Mobile = NewUp
 
@@ -94,7 +98,8 @@ func (c *Chaincode) UpdateEmail(ctx CustomTransactionContextInterface, id, NewUp
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Email = NewUp
 
@@ -113,7 +118,8 @@ func (c *Chaincode) UpdateSecondaryEmail(ctx CustomTransactionContextInterface, 
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.SecondaryEmail = NewUp
 
@@ -132,7 +138,8 @@ func (c *Chaincode) UpdateSkypid(ctx CustomTransactionContextInterface, id, NewU
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Skypid = NewUp
 
@@ -151,7 +158,8 @@ func (c *Chaincode) UpdateAddress(ctx CustomTransactionContextInterface, id, str
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Street = street
 	lead.Arealoction = arealoction
@@ -175,7 +183,8 @@ func (c *Chaincode) UpdateEmailoptout(ctx CustomTransactionContextInterface, id,
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Emailoptout = NewUp
 
@@ -194,7 +203,8 @@ func (c *Chaincode) UpdateFax(ctx CustomTransactionContextInterface, id, NewUp, 
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Fax = NewUp
 
@@ -213,7 +223,8 @@ func (c *Chaincode) UpdateComanpy(ctx CustomTransactionContextInterface, id, cna
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Company = cname
 	lead.Industry = industry
@@ -236,7 +247,8 @@ func (c *Chaincode) UpdateAnnualRevenue(ctx CustomTransactionContextInterface, i
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.AnnualRevenue = NewUp
 
@@ -255,7 +267,8 @@ func (c *Chaincode) UpdateWebsite(ctx CustomTransactionContextInterface, id, New
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Website = NewUp
 
@@ -274,7 +287,8 @@ func (c *Chaincode) UpdateNoofEmployees(ctx CustomTransactionContextInterface, i
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.NoofEmployees = NewUp
 
@@ -293,7 +307,8 @@ func (c *Chaincode) UpdateSource(ctx CustomTransactionContextInterface, id, NewU
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Source = NewUp
 
@@ -312,7 +327,8 @@ func (c *Chaincode) UpdateStatus(ctx CustomTransactionContextInterface, id, NewU
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Status = NewUp
 
@@ -331,7 +347,8 @@ func (c *Chaincode) UpdateRating(ctx CustomTransactionContextInterface, id, NewU
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Rating = NewUp
 
@@ -350,7 +367,8 @@ func (c *Chaincode) UpdateContactID(ctx CustomTransactionContextInterface, id, N
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.ContactID = NewUp
 
@@ -369,7 +387,8 @@ func (c *Chaincode) UpdateOwner(ctx CustomTransactionContextInterface, id, NewUp
 	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
-	lead.Update[time.Now().Unix()] = requester
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
 
 	lead.Owner = NewUp
 

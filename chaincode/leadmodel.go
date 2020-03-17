@@ -6,7 +6,8 @@ const (
 type Lead struct {
 	DocType  string              `json:"docTyp"`
 	ID       string              `json:"lead_id"`
-	Update   map[int64]string    `json:"updates"`
+	UpdatedBy string `json:"updated_by"`
+	UpdatedDate int64 `json:"updated_date"`
 	
 	Saluation      string `json:"lead_saluation"`
 	FirstName      string `json:"lead_firstname"`
@@ -40,4 +41,5 @@ type Lead struct {
 	ContactID  string `json:"contact_id"`
 	Owner      string `json:"lead_owner"`
 }
+
 
