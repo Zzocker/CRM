@@ -1,0 +1,10 @@
+{
+    "index": {
+        "fields": [
+            "docType",
+            "deal_owner"
+        ]
+    },
+    "ddoc": "indexOnDealOwner",
+    "type": "json"
+}

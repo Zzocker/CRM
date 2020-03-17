@@ -2,11 +2,20 @@ package main
 
 import (
 	"encoding/json"
-	."fmt"
+	. "fmt"
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/hyperledger/fabric-chaincode-go/shim"
+	"github.com/hyperledger/fabric-protos-go/ledger/queryresult"
+	"github.com/hyperledger/fabric-protos-go/peer"
 )
+
+type LeadOutput struct {
+	Bookmark string `json:"bookmark"`
+	Result   []Lead `json:"result"`
+	Count    uint   `json:"counter"`
+}
 
 func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, salutation, fname, lname, mobile, requester string) string {
 	id = uuid.New().String()
@@ -83,3 +92,68 @@ func (c *Chaincode) DeleteLead(ctx CustomTransactionContextInterface, id, reques
 	return ctx.GetStub().DelState(id)
 }
 
+func (c *Chaincode) GetAllMyLeads(ctx CustomTransactionContextInterface, bookmark, requester string) (LeadOutput, error) {
+	var pagesize int32 = 10
+	if bookmark == "start" {
+		bookmark = ""
+	}
+	var hasMorePages = true
+
+	query := `{
+			"selector": {
+				"docTyp": "LEAD",
+				"lead_owner": `
+	query += "\"" + requester + "\""
+	query += `
+			},
+			"use_index": "indexOnLeadOwner"
+		}`
+	var output LeadOutput
+	var qryIterator shim.StateQueryIteratorInterface
+	var queryMetaDate *peer.QueryResponseMetadata
+	var err error
+	
+	lastBookmark := ""
+	for hasMorePages {
+		qryIterator, queryMetaDate, err = ctx.GetStub().GetQueryResultWithPagination(query, pagesize, bookmark)
+		if err != nil {
+			return LeadOutput{}, Errorf("error connecting world state")
+		}
+		var resultKV *queryresult.KV
+
+		if lastBookmark != queryMetaDate.Bookmark {
+			for qryIterator.HasNext() {
+				resultKV, err = qryIterator.Next()
+
+				output.Count++
+
+				leadAsByte := resultKV.GetValue()
+				var lead Lead
+				if requester != lead.Owner {
+					return LeadOutput{}, nil
+				}
+				json.Unmarshal(leadAsByte, &lead)
+				output.Result = append(output.Result, lead)
+			}
+		}
+		bookmark = queryMetaDate.Bookmark
+		hasMorePages = (bookmark != "" && lastBookmark != bookmark)
+		lastBookmark = bookmark
+	}
+	output.Bookmark = bookmark
+
+	return output, nil
+}
+
+func (c *Chaincode) GetMyLead(ctx CustomTransactionContextInterface, id, requester string) (Lead, error) {
+	existing := ctx.GetData()
+	if existing == nil {
+		return Lead{}, Errorf("Key with %v doesn't exists", id)
+	}
+	var lead Lead
+	json.Unmarshal(existing, &lead)
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
+		return Lead{}, Errorf("Owner missmatch")
+	}
+	return lead, nil
+}

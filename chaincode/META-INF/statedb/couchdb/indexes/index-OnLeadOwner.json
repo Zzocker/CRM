@@ -1,0 +1,10 @@
+{
+    "index": {
+        "fields": [
+            "docType",
+            "lead_owner"
+        ]
+    },
+    "ddoc": "indexOnLeadOwner",
+    "type": "json"
+}
