@@ -7,72 +7,64 @@ import (
 	"github.com/google/uuid"
 )
 
-func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface,id,salutation,fname,lname,mobile,requester string) Lead  {
+func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, salutation, fname, lname, mobile, requester string) string {
 	id = uuid.New().String()
-	createTime:= time.Now().Unix()
+	createTime := time.Now().Unix()
 	lead := Lead{
-		DocType: LEAD,
-		ID: id,
-		Update: make(map[int64]string),
-		General: LeadGeneralDetails{},
-		Company: LeadCompanyDetails{},
-		Personal: LeadPersonalDetails{},
+		DocType:  LEAD,
+		ID:       id,
+		Update:   make(map[int64]string),
 	}
 
-	lead.Update[createTime]=requester
+	lead.Update[createTime] = requester
 
-	lead.Personal.Saluation=salutation
-	lead.Personal.FirstName =fname
-	lead.Personal.Mobile=mobile
+	lead.Saluation = salutation
+	lead.FirstName = fname
+	lead.LastName = lname
+	lead.Mobile = mobile
 
-	lead.General.CreateBy=requester
-	lead.General.CreateDate=createTime
-	lead.General.Owner=requester
+	lead.CreateBy = requester
+	lead.CreateDate = createTime
+	lead.Owner = requester
 
-	leadAsByte,_:=json.Marshal(lead)
+	leadAsByte, _ := json.Marshal(lead)
 
-	ctx.GetStub().PutState(id,leadAsByte)
-
+	ctx.GetStub().PutState(id, leadAsByte)
 
 	// return id
-	return lead
+	return id
 }
-func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,id,contactid ,title,salutation,fname,lname,mobile,country,state,city,pincode,email,requester string) Lead {
+func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface, id, contactid, title, salutation, fname, lname, mobile, country, state, city, pincode, email, requester string) string {
 	id = uuid.New().String()
-	createTime:= time.Now().Unix()
+	createTime := time.Now().Unix()
 	lead := Lead{
-		DocType: LEAD,
-		ID: id,
-		Update: make(map[int64]string),
-		General: LeadGeneralDetails{},
-		Company: LeadCompanyDetails{},
-		Personal: LeadPersonalDetails{},
+		DocType:  LEAD,
+		ID:       id,
+		Update:   make(map[int64]string),
 	}
-	lead.Update[createTime]=requester
+	lead.Update[createTime] = requester
 
-	lead.Personal.JobTitle= title
-	lead.Personal.Saluation=salutation
-	lead.Personal.FirstName=fname
-	lead.Personal.LastName=lname
-	lead.Personal.Mobile=mobile
-	lead.Personal.Country=country
-	lead.Personal.State=state
-	lead.Personal.City=city
-	lead.Personal.Zipcode=pincode
-	lead.Personal.Email=email
+	lead.JobTitle = title
+	lead.Saluation = salutation
+	lead.FirstName = fname
+	lead.LastName = lname
+	lead.Mobile = mobile
+	lead.Country = country
+	lead.State = state
+	lead.City = city
+	lead.Zipcode = pincode
+	lead.Email = email
 
+	lead.CreateBy = requester
+	lead.CreateDate = createTime
+	lead.Owner = requester
+	lead.ContactID = contactid
 
-	lead.General.CreateBy=requester
-	lead.General.CreateDate=createTime
-	lead.General.Owner=requester
-	lead.General.ContactID=contactid
+	leadAsByte, _ := json.Marshal(lead)
 
-	leadAsByte,_:=json.Marshal(lead)
-
-	ctx.GetStub().PutState(id,leadAsByte)
-
+	ctx.GetStub().PutState(id, leadAsByte)
 
 	// return id
-	return lead
+	return id
 
 }

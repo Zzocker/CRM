@@ -6,374 +6,374 @@ import (
 	"time"
 )
 
-func (c *Chaincode) updateName(ctx CustomTransactionContextInterface, id, Saluation, fname, lname, requester string) error {
+func (c *Chaincode) UpdateName(ctx CustomTransactionContextInterface, id, Saluation, fname, lname, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Saluation = Saluation
-	lead.Personal.FirstName = fname
-	lead.Personal.LastName = lname
+	lead.Saluation = Saluation
+	lead.FirstName = fname
+	lead.LastName = lname
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateJobTitle(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateJobTitle(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.JobTitle = NewUp
+	lead.JobTitle = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updatePhone(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdatePhone(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Phone = NewUp
+	lead.Phone = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateMobile(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateMobile(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Mobile = NewUp
+	lead.Mobile = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateEmail(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateEmail(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Email = NewUp
+	lead.Email = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateSecondaryEmail(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateSecondaryEmail(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.SecondaryEmail = NewUp
+	lead.SecondaryEmail = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateSkypid(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateSkypid(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Skypid = NewUp
+	lead.Skypid = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateAddress(ctx CustomTransactionContextInterface, id, street, arealoction, city, state, zipcode, country, requester string) error {
+func (c *Chaincode) UpdateAddress(ctx CustomTransactionContextInterface, id, street, arealoction, city, state, zipcode, country, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Street = street
-	lead.Personal.Arealoction = arealoction
-	lead.Personal.City = city
-	lead.Personal.State = state
-	lead.Personal.Zipcode = zipcode
-	lead.Personal.Country = country
+	lead.Street = street
+	lead.Arealoction = arealoction
+	lead.City = city
+	lead.State = state
+	lead.Zipcode = zipcode
+	lead.Country = country
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateEmailoptout(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateEmailoptout(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Emailoptout = NewUp
+	lead.Emailoptout = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateFax(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateFax(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Personal.Fax = NewUp
+	lead.Fax = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateCompany(ctx CustomTransactionContextInterface, id, cname, industry, requester string) error {
+func (c *Chaincode) UpdateComanpy(ctx CustomTransactionContextInterface, id, cname, industry, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Company.Company = cname
-	lead.Company.Industry = industry
-	lead.Company.AnnualRevenue = 0
-	lead.Company.Website = ""
-	lead.Company.NoofEmployees = 0
+	lead.Company = cname
+	lead.Industry = industry
+	lead.AnnualRevenue = 0
+	lead.Website = ""
+	lead.NoofEmployees = 0
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateAnnualRevenue(ctx CustomTransactionContextInterface, id, NewUp int64, requester string) error {
+func (c *Chaincode) UpdateAnnualRevenue(ctx CustomTransactionContextInterface, id string, NewUp int64, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Company.AnnualRevenue = NewUp
+	lead.AnnualRevenue = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateWebsite(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateWebsite(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Company.Website = NewUp
+	lead.Website = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateNoofEmployees(ctx CustomTransactionContextInterface, id, NewUp uint, requester string) error {
+func (c *Chaincode) UpdateNoofEmployees(ctx CustomTransactionContextInterface, id string, NewUp uint, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.Company.NoofEmployees = NewUp
+	lead.NoofEmployees = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateSource(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateSource(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.General.Source = NewUp
+	lead.Source = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateStatus(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateStatus(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.General.Status = NewUp
+	lead.Status = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateRating(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateRating(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.General.Rating = NewUp
+	lead.Rating = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateContactID(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateContactID(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.General.ContactID = NewUp
+	lead.ContactID = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) updateOwner(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateOwner(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
-	if lead.General.Owner != requester { // new logic will be implemented when ecert is added
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
 		return Errorf("Owner missmatch")
 	}
 	lead.Update[time.Now().Unix()] = requester
 
-	lead.General.Owner = NewUp
+	lead.Owner = NewUp
 
 	existing, _ = json.Marshal(lead)
 
-	return ctx.GetStub().PutState(id, lead)
+	return ctx.GetStub().PutState(id, existing)
 }
