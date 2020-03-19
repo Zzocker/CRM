@@ -1,0 +1,43 @@
+version: '2'
+
+networks:
+    crm:
+volumes: 
+  orderer:
+  orderer1:
+
+services: 
+
+  orderer:
+    extends:
+      file:   ./base/base.yaml
+      service: orderer-base
+    container_name: orderer
+    volumes:
+        - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./orderer.com/orderers/orderer/msp:/var/hyperledger/orderer/msp
+        - ./orderer.com/orderers/orderer/tls/:/var/hyperledger/orderer/tls
+        - orderer:/var/hyperledger/production/orderer
+    # extra_hosts: 
+      # - devpeer: private IP of devpeer
+    networks: 
+       - crm
+    ports: 
+      - 7050:7050
+    
+  orderer1:
+    extends: 
+      file: ./base/base.yaml
+      service : orderer-base
+    container_name: orderer1
+    volumes:
+        - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./orderer.com/orderers/orderer1/msp:/var/hyperledger/orderer/msp
+        - ./orderer.com/orderers/orderer1/tls/:/var/hyperledger/orderer/tls
+        - orderer1:/var/hyperledger/production/orderer
+    # extra_hosts: 
+      # - devpeer: private IP of devpeer
+    networks: 
+      - crm
+    ports: 
+      - 8050:7050

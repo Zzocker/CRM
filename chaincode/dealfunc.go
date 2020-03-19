@@ -104,6 +104,7 @@ func (c *Chaincode) GetAllMyDeals(ctx CustomTransactionContextInterface, bookmar
 		bookmark = queryMetaDate.Bookmark
 		hasMorePages = (bookmark != "" && lastBookmark != bookmark)
 		lastBookmark = bookmark
+		qryIterator.Close()
 	}
 	output.Bookmark = bookmark
 

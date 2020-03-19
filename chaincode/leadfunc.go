@@ -112,7 +112,7 @@ func (c *Chaincode) GetAllMyLeads(ctx CustomTransactionContextInterface, bookmar
 	var qryIterator shim.StateQueryIteratorInterface
 	var queryMetaDate *peer.QueryResponseMetadata
 	var err error
-	
+
 	lastBookmark := ""
 	for hasMorePages {
 		qryIterator, queryMetaDate, err = ctx.GetStub().GetQueryResultWithPagination(query, pagesize, bookmark)
@@ -139,6 +139,7 @@ func (c *Chaincode) GetAllMyLeads(ctx CustomTransactionContextInterface, bookmar
 		bookmark = queryMetaDate.Bookmark
 		hasMorePages = (bookmark != "" && lastBookmark != bookmark)
 		lastBookmark = bookmark
+		qryIterator.Close()
 	}
 	output.Bookmark = bookmark
 

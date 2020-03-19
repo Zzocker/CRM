@@ -1,0 +1,20 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: orderer.com
+    Specs:
+      - Hostname : orderer
+        CommonName: "{{.Hostname}}"
+      - Hostname : orderer1
+        CommonName: "{{.Hostname}}"
+PeerOrgs:
+  - Name: PeepalTree
+    Domain: cm.shadesix.in
+    Specs:
+      - Hostname: devpeer
+        CommonName: "{{.Hostname}}"
+    CA:
+      Hostname: ca
+      Country: India
+      Province: chennai
+      Locality: chennai
+      OrganizationalUnit: Admin

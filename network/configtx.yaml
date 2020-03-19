@@ -1,0 +1,151 @@
+
+Organizations:
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: crypto-config/ordererOrganizations/orderer.com/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
+
+    - &Peepaltree
+        Name: PeepaltreeMSP
+        ID: PeepaltreeMSP
+
+        MSPDir: crypto-config/peerOrganizations/cm.shadesix.in/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('PeepaltreeMSP.admin', 'PeepaltreeMSP.peer', 'PeepaltreeMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('PeepaltreeMSP.admin', 'PeepaltreeMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('PeepaltreeMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('PeepaltreeMSP.peer')"
+        AnchorPeers:
+            - Host: devpeer
+              Port: 7051
+
+
+Capabilities:
+    Channel: &ChannelCapabilities
+        V2_0: true
+    Orderer: &OrdererCapabilities
+        V2_0: true
+    Application: &ApplicationCapabilities
+        V2_0: true
+Application: &ApplicationDefaults
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+
+    Capabilities:
+        <<: *ApplicationCapabilities
+Orderer: &OrdererDefaults
+    OrdererType: etcdraft
+
+    Addresses:
+        - orderer:7050
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+    Capabilities:
+        <<: *ChannelCapabilities
+Profiles:
+
+    CRM:
+        Consortium: CRMConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Peepaltree
+            Capabilities:
+                <<: *ApplicationCapabilities
+
+    Genesis:
+        <<: *ChannelDefaults
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            OrdererType: etcdraft
+            EtcdRaft:
+                Consenters:
+                - Host: orderer
+                  Port: 7050
+                  ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer/tls/server.crt
+                - Host: orderer1
+                  Port: 7050
+                  ClientTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer1/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/orderer.com/orderers/orderer1/tls/server.crt
+            Addresses:
+                - orderer:7050
+                - orderer1:7050
+            Organizations:
+            - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+            - <<: *OrdererOrg
+        Consortiums:
+            CRMConsortium:
+                Organizations:
+                - *Peepaltree
