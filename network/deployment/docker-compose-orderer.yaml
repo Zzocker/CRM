@@ -14,7 +14,7 @@ services:
       service: orderer-base
     container_name: orderer
     volumes:
-        - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
         - ./orderer.com/orderers/orderer/msp:/var/hyperledger/orderer/msp
         - ./orderer.com/orderers/orderer/tls/:/var/hyperledger/orderer/tls
         - orderer:/var/hyperledger/production/orderer
@@ -31,7 +31,7 @@ services:
       service : orderer-base
     container_name: orderer1
     volumes:
-        - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
         - ./orderer.com/orderers/orderer1/msp:/var/hyperledger/orderer/msp
         - ./orderer.com/orderers/orderer1/tls/:/var/hyperledger/orderer/tls
         - orderer1:/var/hyperledger/production/orderer

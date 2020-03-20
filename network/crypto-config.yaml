@@ -9,6 +9,7 @@ OrdererOrgs:
 PeerOrgs:
   - Name: PeepalTree
     Domain: cm.shadesix.in
+    EnableNodeOUs: true
     Specs:
       - Hostname: devpeer
         CommonName: "{{.Hostname}}"
