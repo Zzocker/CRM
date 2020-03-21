@@ -1,0 +1,12 @@
+{
+    "index": {
+        "fields": [
+            "docTyp",
+            "lead_owner",
+            "updated_date",
+            "lead_firstname"
+        ]
+    },
+    "name":"LeadOnUpdated",
+    "type": "json"
+}

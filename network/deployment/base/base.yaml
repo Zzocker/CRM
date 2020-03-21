@@ -9,7 +9,7 @@ services:
 
       - CORE_PEER_GOSSIP_ORGLEADER=false
       - FABRIC_LOGGING_SPEC=INFO
-      - CORE_LEDGER_STATE_STATEDATEBASE=CouchDB
+      
       
       - CORE_PEER_TLS_ENABLED=true
 
@@ -51,7 +51,7 @@ services:
     image: hyperledger/fabric-ca:latest
     environment:
         - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-        - CORE_VM_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_CRM
+        - CORE_VM_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_crm
         - FABRIC_CA_SERVER_TLS_ENABLED=true
         - FABRIC_CA_SERVER_TLS_CERTFILE=/ca/cert.pem
         - FABRIC_CA_SERVER_TLS_KEYFILE=/ca/priv_sk

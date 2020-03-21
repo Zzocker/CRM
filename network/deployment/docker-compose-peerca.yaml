@@ -21,6 +21,7 @@ services:
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=devpeer:7051
       - CORE_PEER_LOCALMSPID=PeepaltreeMSP
 
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=database:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=
@@ -38,7 +39,7 @@ services:
   
   database:
         container_name: database
-        image: hyperledger/fabric-couchdb:latest
+        image: hyperledger/fabric-couchdb
         environment:
             - COUCHDB_USER=
             - COUCHDB_PASSWORD=
@@ -46,6 +47,10 @@ services:
             - devpeer-worldstate:/opt/couchdb
         networks:
             - crm
+        ports: 
+          - 5984:5984
+        depends_on:
+          - devpeer
   
   ca:
         container_name: ca

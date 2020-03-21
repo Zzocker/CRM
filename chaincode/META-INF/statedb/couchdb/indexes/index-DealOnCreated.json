@@ -1,0 +1,12 @@
+{
+    "index": {
+        "fields": [
+            "docTyp",
+            "deal_owner",
+            "created_date",
+            "deal_name"
+        ]
+    },
+    "name": "DealOnCreated",
+    "type": "json"
+}

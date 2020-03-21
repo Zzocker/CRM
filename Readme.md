@@ -7,8 +7,6 @@ peer chaincode invoke -C crmchannel -n crm -o orderer:7050 -c '{"args":["CreateN
  export ORDERER=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/orderer.com/orderers/orderer/msp/tlscacerts/tlsca.orderer.com-cert.pem
 
 
-  189b8aa02740 29e753789df0 6a648b0beed5
-
 
 1. export ORDERER=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/orderer.com/orderers/orderer/msp/tlscacerts/tlsca.orderer.com-cert.pem
 2. peer channel create -f channel.tx -o orderer:7050 -c crmchannel --tls --cafile $ORDERER

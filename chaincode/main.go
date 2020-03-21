@@ -4,6 +4,11 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
+const (
+	CREATED = "created"
+	UPDATED = "updated"
+)
+
 // Chaincode : strcut for implementing chaincode
 type Chaincode struct {
 	contractapi.Contract

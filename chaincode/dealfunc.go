@@ -6,21 +6,18 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-protos-go/ledger/queryresult"
-	"github.com/hyperledger/fabric-protos-go/peer"
 )
 
 type DealOutput struct {
-	Bookmark string `json:"bookmark"`
-	Result   []Deal `json:"result"`
-	Count    uint   `json:"counter"`
+	Result []Deal `json:"result"`
+	Count  uint   `json:"counter"`
 }
 
-func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadID, requester string) (string, error) {
+func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, dealID, requester string) (string, error) {
 	existing := ctx.GetData()
 	if existing == nil {
-		return "", Errorf("Key with %v doesn't exists", leadID)
+		return "", Errorf("Key with %v doesn't exists", dealID)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
@@ -31,7 +28,7 @@ func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadID, 
 	deal := Deal{
 		DocType:     DEAL,
 		DealID:      id,
-		DealLeadID:  leadID,
+		DealLeadID:  dealID,
 		DealOwner:   requester,
 		CreatedBy:   requester,
 		CreatedDate: time.Now().Unix(),
@@ -52,63 +49,43 @@ func (c *Chaincode) DeleteDeal(ctx CustomTransactionContextInterface, id, reques
 	var deal Deal
 	json.Unmarshal(existing, &deal)
 	if deal.DealOwner != requester {
-		Errorf("Unauthorized to Delete this lead ")
+		Errorf("Unauthorized to Delete this deal ")
 	}
 	return ctx.GetStub().DelState(id)
 }
 
-func (c *Chaincode) GetAllMyDeals(ctx CustomTransactionContextInterface, bookmark, requester string) (DealOutput, error) {
-	var pagesize int32 = 10
-	if bookmark == "start" {
-		bookmark = ""
+func (c *Chaincode) GetAllMyDeals(ctx CustomTransactionContextInterface, qtype, qvalue, requester string) (DealOutput, error) {
+	var output DealOutput
+	var query string
+	if qtype == CREATED {
+		query = `{"use_index": "DealOnCreated",`
+	} else if qtype == UPDATED {
+		query = `{"use_index": "DealOnUpdated",`
+	} else {
+		return DealOutput{}, Errorf("Error : No suc query type %v for deal", qtype)
 	}
-	var hasMorePages = true
-
-	query := `{
+	query += `
 			"selector": {
 				"docTyp": "DEAL",
 				"deal_owner": `
 	query += "\"" + requester + "\""
-	query += `
-			},
-			"use_index": "indexOnDealOwner"
-		}`
-	var output DealOutput
-	var qryIterator shim.StateQueryIteratorInterface
-	var queryMetaDate *peer.QueryResponseMetadata
-	var err error
-
-	lastBookmark := ""
-	for hasMorePages {
-		qryIterator, queryMetaDate, err = ctx.GetStub().GetQueryResultWithPagination(query, pagesize, bookmark)
-		if err != nil {
-			return DealOutput{}, Errorf("error connecting world state")
-		}
+	query += qvalue
+	// to add into selector , ---new selector----}}
+	// not to selector , --},new :----}
+	result, err := ctx.GetStub().GetQueryResult(query)
+	if err != nil {
+		return DealOutput{}, err
+	}
+	for result.HasNext() {
 		var resultKV *queryresult.KV
 
-		if lastBookmark != queryMetaDate.Bookmark {
-			for qryIterator.HasNext() {
-				resultKV, err = qryIterator.Next()
-
-				output.Count++
-
-				dealAsByte := resultKV.GetValue()
-				var deal Deal
-				if requester != deal.DealOwner {
-					return DealOutput{}, nil
-				}
-				json.Unmarshal(dealAsByte, &deal)
-				output.Result = append(output.Result, deal)
-			}
-		}
-		bookmark = queryMetaDate.Bookmark
-		hasMorePages = (bookmark != "" && lastBookmark != bookmark)
-		lastBookmark = bookmark
-		qryIterator.Close()
+		resultKV, _ = result.Next()
+		var deal Deal
+		json.Unmarshal(resultKV.GetValue(), &deal)
+		output.Result = append(output.Result, deal)
+		output.Count++
 	}
-	output.Bookmark = bookmark
-
-	return output, nil
+	return output, result.Close()
 }
 
 func (c *Chaincode) GetMyDeal(ctx CustomTransactionContextInterface, id, requester string) (Deal, error) {

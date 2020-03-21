@@ -6,15 +6,12 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-protos-go/ledger/queryresult"
-	"github.com/hyperledger/fabric-protos-go/peer"
 )
 
 type LeadOutput struct {
-	Bookmark string `json:"bookmark"`
-	Result   []Lead `json:"result"`
-	Count    uint   `json:"counter"`
+	Result []Lead `json:"result"`
+	Count  uint   `json:"counter"`
 }
 
 func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, salutation, fname, lname, mobile, requester string) string {
@@ -92,58 +89,38 @@ func (c *Chaincode) DeleteLead(ctx CustomTransactionContextInterface, id, reques
 	return ctx.GetStub().DelState(id)
 }
 
-func (c *Chaincode) GetAllMyLeads(ctx CustomTransactionContextInterface, bookmark, requester string) (LeadOutput, error) {
-	var pagesize int32 = 10
-	if bookmark == "start" {
-		bookmark = ""
+func (c *Chaincode) GetAllMyLeads(ctx CustomTransactionContextInterface, qtype, qvalue, requester string) (LeadOutput, error) {
+	var output LeadOutput
+	var query string
+	if qtype == CREATED {
+		query = `{"use_index": "LeadOnCreated",`
+	} else if qtype == UPDATED {
+		query = `{"use_index": "LeadOnUpdated",`
+	} else {
+		return LeadOutput{}, Errorf("Error : No suc query type %v for lead", qtype)
 	}
-	var hasMorePages = true
-
-	query := `{
+	query += `
 			"selector": {
 				"docTyp": "LEAD",
 				"lead_owner": `
 	query += "\"" + requester + "\""
-	query += `
-			},
-			"use_index": "indexOnLeadOwner"
-		}`
-	var output LeadOutput
-	var qryIterator shim.StateQueryIteratorInterface
-	var queryMetaDate *peer.QueryResponseMetadata
-	var err error
-
-	lastBookmark := ""
-	for hasMorePages {
-		qryIterator, queryMetaDate, err = ctx.GetStub().GetQueryResultWithPagination(query, pagesize, bookmark)
-		if err != nil {
-			return LeadOutput{}, Errorf("error connecting world state")
-		}
+	query += qvalue
+	// to add into selector , ---new selector----}}
+	// not to selector , --},new :----}
+	result, err := ctx.GetStub().GetQueryResult(query)
+	if err != nil {
+		return LeadOutput{}, err
+	}
+	for result.HasNext() {
 		var resultKV *queryresult.KV
 
-		if lastBookmark != queryMetaDate.Bookmark {
-			for qryIterator.HasNext() {
-				resultKV, err = qryIterator.Next()
-
-				output.Count++
-
-				leadAsByte := resultKV.GetValue()
-				var lead Lead
-				if requester != lead.Owner {
-					return LeadOutput{}, nil
-				}
-				json.Unmarshal(leadAsByte, &lead)
-				output.Result = append(output.Result, lead)
-			}
-		}
-		bookmark = queryMetaDate.Bookmark
-		hasMorePages = (bookmark != "" && lastBookmark != bookmark)
-		lastBookmark = bookmark
-		qryIterator.Close()
+		resultKV, _ = result.Next()
+		var lead Lead
+		json.Unmarshal(resultKV.GetValue(), &lead)
+		output.Result = append(output.Result, lead)
+		output.Count++
 	}
-	output.Bookmark = bookmark
-
-	return output, nil
+	return output, result.Close()
 }
 
 func (c *Chaincode) GetMyLead(ctx CustomTransactionContextInterface, id, requester string) (Lead, error) {

@@ -1,0 +1,12 @@
+{
+    "index": {
+        "fields": [
+            "docTyp",
+            "deal_owner",
+            "updated_date",
+            "deal_name"
+        ]
+    },
+    "name": "DealOnUpdated",
+    "type": "json"
+}
