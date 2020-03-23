@@ -396,3 +396,23 @@ func (c *Chaincode) UpdateOwner(ctx CustomTransactionContextInterface, id, NewUp
 
 	return ctx.GetStub().PutState(id, existing)
 }
+
+func (c *Chaincode) EditLeadDescription(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+	existing := ctx.GetData()
+	if existing == nil {
+		return Errorf("Key with %v doesn't exists", id)
+	}
+	var lead Lead
+	json.Unmarshal(existing, &lead)
+	if lead.Owner != requester { // new logic will be implemented when ecert is added
+		return Errorf("Owner missmatch")
+	}
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
+
+	lead.Description = NewUp
+
+	existing, _ = json.Marshal(lead)
+
+	return ctx.GetStub().PutState(id, existing)
+}

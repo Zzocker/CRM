@@ -14,8 +14,8 @@ type LeadOutput struct {
 	Count  uint   `json:"counter"`
 }
 
-func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, salutation, fname, lname, mobile, requester string) string {
-	id = uuid.New().String()
+func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, lname, company, requester string) string {
+	id := uuid.New().String()
 	createTime := time.Now().Unix()
 	lead := Lead{
 		DocType: LEAD,
@@ -25,10 +25,9 @@ func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, sal
 	lead.UpdatedBy = requester
 	lead.UpdatedDate = createTime
 
-	lead.Saluation = salutation
-	lead.FirstName = fname
+	
 	lead.LastName = lname
-	lead.Mobile = mobile
+	lead.Company=company
 
 	lead.CreateBy = requester
 	lead.CreateDate = createTime
@@ -41,8 +40,8 @@ func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, id, sal
 	// return id
 	return id
 }
-func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface, id, contactid, title, salutation, fname, lname, mobile, country, state, city, pincode, email, requester string) string {
-	id = uuid.New().String()
+func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,contactid, title, salutation, fname, lname, mobile, country, state, city, pincode, email, requester string) string {
+	id := uuid.New().String()
 	createTime := time.Now().Unix()
 	lead := Lead{
 		DocType: LEAD,

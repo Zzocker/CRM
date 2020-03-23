@@ -9,7 +9,7 @@ const CHAINCODE="crm"
 const CHANNEL = "crmchannel"
 const CLIENT = "211"
 
-const contract = async ()=>{
+const contract = async (type,inputs)=>{
 
     try {
         const wallet = await Wallets.newFileSystemWallet(walletPath)
@@ -23,11 +23,18 @@ const contract = async ()=>{
        await gateway.connect(ccp,{wallet,identity:CLIENT,discovery: { enabled: false, asLocalhost: true }})
        const network = await gateway.getNetwork(CHANNEL)
        const contract = network.getContract(CHAINCODE)
-    //    const res= await contract.evaluateTransaction("GetAllMyLeads","created","}}","21")
-    //    console.log(JSON.parse(res))
-        return contract
+       var payload
+       if (type=="invoke"){
+            payload = await contract.submitTransaction(...inputs)
+       }
+       else if (type == "query"){
+        // const payload = await contract.evaluateTransaction("GetAllMyLeads","created","}}","21")
+            payload = await contract.evaluateTransaction(...inputs)
+       }
+        return payload
     } catch (error) {
         console.log(error)
+        return
     }
 }
 module.exports = {contract}

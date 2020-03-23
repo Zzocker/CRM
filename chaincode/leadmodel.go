@@ -1,4 +1,5 @@
 package main
+package main
 const (
 	LEAD = "LEAD"
 )
@@ -8,6 +9,7 @@ type Lead struct {
 	ID       string              `json:"lead_id"`
 	UpdatedBy string `json:"updated_by"`
 	UpdatedDate int64 `json:"updated_date"`
+	Description string `json:"lead_description"`
 	
 	Saluation      string `json:"lead_saluation"`
 	FirstName      string `json:"lead_firstname"`

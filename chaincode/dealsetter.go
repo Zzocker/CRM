@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	. "fmt"
 	"time"
-	."fmt"
 )
 
 func (c *Chaincode) UpdateDealOwner(ctx CustomTransactionContextInterface, id, newUp, requester string) error {
@@ -339,6 +339,26 @@ func (c *Chaincode) UpdateExpectedRevenue(ctx CustomTransactionContextInterface,
 	deal.UpdatedDate = time.Now().Unix()
 
 	deal.DealExpectedRevenue = newUp
+
+	existing, _ = json.Marshal(deal)
+
+	return ctx.GetStub().PutState(id, existing)
+}
+
+func (c *Chaincode) EditDealDescription(ctx CustomTransactionContextInterface, id, newUp, requester string) error {
+	existing := ctx.GetData()
+	if existing == nil {
+		return Errorf("Key with %v doesn't exists", id)
+	}
+	var deal Deal
+	json.Unmarshal(existing, &deal)
+	if deal.DealOwner != requester { // new logic will be implemented when ecert is added
+		return Errorf("Owner missmatch")
+	}
+	deal.UpdatedBy = requester
+	deal.UpdatedDate = time.Now().Unix()
+
+	deal.Description = newUp
 
 	existing, _ = json.Marshal(deal)
 

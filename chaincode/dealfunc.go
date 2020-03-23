@@ -14,10 +14,10 @@ type DealOutput struct {
 	Count  uint   `json:"counter"`
 }
 
-func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, dealID, requester string) (string, error) {
+func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSourceID, dname, accountName, accountID, dealType string, amount float64, closingDate, stage, probability, requester string) (string, error) {
 	existing := ctx.GetData()
 	if existing == nil {
-		return "", Errorf("Key with %v doesn't exists", dealID)
+		return "", Errorf("Key with %v doesn't exists", leadSourceID)
 	}
 	var lead Lead
 	json.Unmarshal(existing, &lead)
@@ -26,14 +26,22 @@ func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, dealID, 
 	}
 	id := uuid.New().String()
 	deal := Deal{
-		DocType:     DEAL,
-		DealID:      id,
-		DealLeadID:  dealID,
-		DealOwner:   requester,
-		CreatedBy:   requester,
-		CreatedDate: time.Now().Unix(),
-		UpdatedBy:   requester,
-		UpdatedDate: time.Now().Unix(),
+		DocType:         DEAL,
+		DealID:          id,
+		DealLeadSource:  leadSourceID,
+		DealName:        dname,
+		DealAccountName: accountName,
+		DealAccountID:   accountID,
+		DealType:        dealType,
+		DealAmount:      amount,
+		DealClosingDate: closingDate,
+		DealStage:       stage,
+		DealProbility:   probability,
+		DealOwner:       requester,
+		CreatedBy:       requester,
+		CreatedDate:     time.Now().Unix(),
+		UpdatedBy:       requester,
+		UpdatedDate:     time.Now().Unix(),
 	}
 
 	dealAsByte, _ := json.Marshal(deal)
