@@ -1,5 +1,4 @@
 package main
-package main
 const (
 	LEAD = "LEAD"
 )

@@ -25,9 +25,8 @@ func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, lname, 
 	lead.UpdatedBy = requester
 	lead.UpdatedDate = createTime
 
-	
 	lead.LastName = lname
-	lead.Company=company
+	lead.Company = company
 
 	lead.CreateBy = requester
 	lead.CreateDate = createTime
@@ -40,7 +39,7 @@ func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, lname, 
 	// return id
 	return id
 }
-func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,contactid, title, salutation, fname, lname, mobile, country, state, city, pincode, email, requester string) string {
+func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface, contactid, fname, lname, mobile, country, state, city, pincode, email, requester string) string {
 	id := uuid.New().String()
 	createTime := time.Now().Unix()
 	lead := Lead{
@@ -50,8 +49,6 @@ func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,
 	lead.UpdatedBy = requester
 	lead.UpdatedDate = createTime
 
-	lead.JobTitle = title
-	lead.Saluation = salutation
 	lead.FirstName = fname
 	lead.LastName = lname
 	lead.Mobile = mobile
@@ -83,7 +80,7 @@ func (c *Chaincode) DeleteLead(ctx CustomTransactionContextInterface, id, reques
 	var lead Lead
 	json.Unmarshal(existing, &lead)
 	if lead.Owner != requester {
-		Errorf("Unauthorized to Delete this lead ")
+		return Errorf("Unauthorized to Delete this lead ")
 	}
 	return ctx.GetStub().DelState(id)
 }

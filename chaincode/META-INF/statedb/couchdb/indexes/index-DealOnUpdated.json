@@ -8,5 +8,6 @@
         ]
     },
     "name": "DealOnUpdated",
+    "ddoc":"DealOnCreated",
     "type": "json"
 }

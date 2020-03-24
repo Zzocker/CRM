@@ -9,14 +9,14 @@ const CHAINCODE="crm"
 const CHANNEL = "crmchannel"
 const CLIENT = "211"
 
-const contract = async (type,inputs)=>{
+const contract = async (type,inputs,callback)=>{
 
     try {
         const wallet = await Wallets.newFileSystemWallet(walletPath)
         const client = await wallet.get(CLIENT)
         if (!client){
             console.log(`${CLIENT} doesn't exists`)
-            return
+            return callback(`${CLIENT} doesn't exists`,null)
         }
 
        const gateway = new Gateway() 
@@ -31,10 +31,9 @@ const contract = async (type,inputs)=>{
         // const payload = await contract.evaluateTransaction("GetAllMyLeads","created","}}","21")
             payload = await contract.evaluateTransaction(...inputs)
        }
-        return payload
+        return callback(null,payload)
     } catch (error) {
-        console.log(error)
-        return
+       return callback(error,null)
     }
 }
 module.exports = {contract}
