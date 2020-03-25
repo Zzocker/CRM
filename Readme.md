@@ -52,7 +52,7 @@
 ## Status
 
 :white_large_square: Chaincode development
-    - :white_check_mark: Lead model
-    - :white_check_mark: Deal model
-    - :white_check_mark:: Lead and Deal Function 
-    - :white_large_square: Access control of Admin, salesperson,manger on deals and leads 
+- :heavy_check_mark: Lead model
+- :heavy_check_mark: Deal model
+- :heavy_check_mark: Lead and Deal Function 
+- :white_large_square: Access control of Admin, salesperson,manger on deals and leads 
