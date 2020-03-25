@@ -1,5 +1,6 @@
 const express = require('express')
-const routes = require('./routes')
+const lead = require('./lead')
+const leadupdate = require('./leadupdate')
 const PORT = "3000"
 
 const api = express()
@@ -10,7 +11,11 @@ const logger = (req,res,next)=>{
 }
 
 api.use(express.json())
-api.use('/',routes)
+
+
+api.use('/lead',lead)
+api.use('/leadupdate',leadupdate)
+
 api.use(logger)
 
 api.listen(PORT,()=>{
