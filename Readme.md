@@ -72,4 +72,4 @@
 ## Documentation
 
 ### Lead
-<a><img src="https://github.com/Zzocker/CRM/blob/master/res/lead.png" width="220" height="400" title="leadmodel" alt="leadmodel"></a>
+<a><img src="https://github.com/Zzocker/CRM/blob/master/res/lead.png" title="leadmodel" alt="leadmodel"></a>
