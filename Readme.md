@@ -52,10 +52,10 @@
 ## Status
 
 :white_large_square: Chaincode development
-- :heavy_check_mark: Lead model
+- :heavy_check_mark: [Lead model](#leadmodel)
 - :heavy_check_mark: Deal model
 - :heavy_check_mark: Lead and Deal Function 
-- :white_large_square: Access control of Admin, salesperson,manger on deals and leads 
+- :white_large_square: Access control for Admin, salesperson,manger on deals and leads 
 
 :heavy_check_mark: Network configured
 
@@ -63,8 +63,13 @@
 
 - :heavy_check_mark: Lead APIs
 - :white_large_square: Deal APIs
-- :white_large_square: containerization of Node server
+- :white_large_square: Containerization of Node server
 
 :white_large_square: Deployment on AWS
 - :white_large_square: Tested
 - :white_large_square: Dev running
+
+## Documentation
+
+### Lead
+<img src="https://github.com/Zzocker/CRM/blob/master/res/lead.png" width="220" height="400" title="leadmodel" alt="LoginPage"></a>
