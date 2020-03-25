@@ -5,7 +5,7 @@
 - [Installation](#installation)
 - [Status](#status)
 - [Documentation](#documentation)
-
+- [Contributors](#Contributors)
 ## Installation
 
 ### Clone
@@ -53,7 +53,7 @@
 
 :white_large_square: Chaincode development
 - :heavy_check_mark: [Lead model](#leadmodel)
-- :heavy_check_mark: Deal model
+- :heavy_check_mark: [Deal model](#dealmodel)
 - :heavy_check_mark: Lead and Deal Function 
 - :white_large_square: Access control for Admin, salesperson,manger on deals and leads 
 
@@ -61,8 +61,8 @@
 
 :white_large_square: Middleware (nodejs server)
 
-- :heavy_check_mark: Lead APIs
-- :white_large_square: Deal APIs
+- :heavy_check_mark: [Lead APIs](#APIDocs)
+- :white_large_square: [Deal APIs](#APIDocs)
 - :white_large_square: Containerization of Node server
 
 :white_large_square: Deployment on AWS
@@ -113,3 +113,61 @@ type Lead struct {
 	Owner      string `json:"lead_owner"`
 }
 ```
+### dealmodel
+
+```golang
+    type Deal struct {
+	DocType string `json:"docTyp"`
+
+	DealID         string `json:"deal_id"`
+	OrganizationID string `json:"organization_id"`
+	DealOwner      string `json:"deal_owner"`
+	DealLeadID     string `json:"deal_lead_id"`
+	Description    string `json:"deal_description"`
+	DealAccountID  string `json:"deal_aacount_id"`
+
+	DealName          string `json:"deal_name"`
+	DealDate          string `json:"deal_date"`
+	DealPotentialName string `json:"deal_potential_name"`
+
+	DealAccountName string `json:"deal_account_name"`
+
+	DealType string `json:"deal_type"`
+
+	DealNextStep     string `json:"deal_next_step"`
+	DealNextStepDate string `json:"deal_next_stepdate"`
+
+	DealLeadSource string `json:"deal_lead_source"`
+
+	DealCampaignSource  string  `json:"deal_campaign_source"`
+	DealContactName     string  `json:"deal_contact_name"`
+	DealCurrencyCode    string  `json:"deal_currency_code"`
+	DealAmount          float64 `json:"deal_amount"`
+	DealClosingDate     string  `json:"deal_closing_date"`
+	DealStage           string  `json:"deal_stage"`
+	DealProbility       string  `json:"deal_probility"`
+	DealExpectedRevenue string  `json:"deal_expected_revenue"`
+
+	CreatedBy   string `json:"created_by"`
+	CreatedDate int64  `json:"created_date"`
+
+	UpdatedBy   string `json:"updated_by"`
+	UpdatedDate int64  `json:"updated_date"`
+}
+```
+
+### APIDocs
+
+Postman Documentation <a href="https://documenter.getpostman.com/view/7262970/SzYT6hqk" target="_blank">`Link`</a>
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/f7a051370809fb91e7a8)
+
+## Contributors
+
+ <a href="https://github.com/Zzocker" target="_blank">**Pritam Singh**</a> 
+
+[![Pritam Singh](https://avatars1.githubusercontent.com/u/43764373?s=200&u=6a3ef280e24c5ffe3b5e108338e028ca4e0745e4&v=4)](https://www.linkedin.com/in/pritam-singh-b1807617b/)   
+
+---
+
+
