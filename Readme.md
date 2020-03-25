@@ -71,7 +71,9 @@
 
 ## Documentation
 
-### Lead
+### Modelfile
+Lead | Deal
+-----------
 ```golang
 type Lead struct {
 	DocType     string `json:"docTyp"`
