@@ -59,3 +59,12 @@
 
 :heavy_check_mark: Network configured
 
+:white_large_square: Middleware (nodejs server)
+
+- :heavy_check_mark: Lead APIs
+- :white_large_square: Deal APIs
+- :white_large_square: containerization of Node server
+
+:white_large_square: Deployment on AWS
+- :white_large_square: Tested
+- :white_large_square: Dev running
