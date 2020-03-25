@@ -5,7 +5,9 @@
 - [Installation](#installation)
 - [Status](#status)
 - [Documentation](#documentation)
+- [Tech Stack](#Stack)
 - [Contributors](#Contributors)
+
 ## Installation
 
 ### Clone
@@ -62,7 +64,7 @@
 :white_large_square: Middleware (nodejs server)
 
 - :heavy_check_mark: [Lead APIs](#APIDocs)
-- :white_large_square: [Deal APIs](#APIDocs)
+- :heavy_check_mark: [Deal APIs](#APIDocs)
 - :white_large_square: Containerization of Node server
 
 :white_large_square: Deployment on AWS
@@ -162,6 +164,9 @@ Postman Documentation <a href="https://documenter.getpostman.com/view/7262970/Sz
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/f7a051370809fb91e7a8)
 
+## Stack
+
+---
 ## Contributors
 
  <a href="https://github.com/Zzocker" target="_blank">**Pritam Singh**</a> 
