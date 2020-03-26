@@ -34,7 +34,7 @@ services:
       - 7051:7051
     extra_hosts: 
       - "orderer:10.0.20.25"
-      - "orderer1:10.0.20.25"
+      - "orderer1:10.0.20.195"
       - orderer: 
     networks: 
       - crm

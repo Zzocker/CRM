@@ -20,6 +20,7 @@ services:
         - orderer:/var/hyperledger/production/orderer
     extra_hosts: 
       - "devpeer:10.0.20.59"
+      - "orderer1:10.0.20.195"
     networks: 
        - crm
     ports: 
@@ -37,7 +38,9 @@ services:
         - orderer1:/var/hyperledger/production/orderer
     extra_hosts: 
       - "devpeer:10.0.20.59"
+      - "orderer:10.0.20.25"
     networks: 
       - crm
     ports: 
-      - 8050:7050
+      - 7050:7050
+      # - 8050:7050 local
