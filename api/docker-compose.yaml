@@ -1,0 +1,11 @@
+version: '2'
+networks: 
+  crm:
+services: 
+  nodeserver:
+    container_name: nodeserver
+    build: .
+    networks: 
+      - crm
+    ports: 
+      - 3000:3000

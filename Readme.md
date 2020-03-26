@@ -61,11 +61,11 @@
 
 :heavy_check_mark: Network configured
 
-:white_large_square: Middleware (nodejs server)
+:heavy_check_mark: Middleware (nodejs server)
 
 - :heavy_check_mark: [Lead APIs](#APIDocs)
 - :heavy_check_mark: [Deal APIs](#APIDocs)
-- :white_large_square: Containerization of Node server
+- :heavy_check_mark: Containerization of Node server
 
 :white_large_square: Deployment on AWS
 - :white_large_square: Tested

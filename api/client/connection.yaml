@@ -27,7 +27,7 @@ organizations:
 
 orderers:
   orderer:
-    url: grpcs://localhost:7050
+    url: grpcs://orderer:7050
     tlsCACerts:
       pem: |
         -----BEGIN CERTIFICATE-----
@@ -49,7 +49,7 @@ orderers:
       ssl-target-name-override: orderer
       hostnameOverride: orderer
   orderer1:
-    url: grpcs://localhost:8050
+    url: grpcs://orderer1:7050
     tlsCACerts:
       pem: |
         -----BEGIN CERTIFICATE-----
@@ -73,7 +73,7 @@ orderers:
 
 peers:
   devpeer:
-    url: grpcs://localhost:7051
+    url: grpcs://devpeer:7051
     tlsCACerts:
       pem: |
         -----BEGIN CERTIFICATE-----
@@ -97,7 +97,7 @@ peers:
 
 certificateAuthorities:
   ca:
-    url: https://localhost:7054
+    url: https://ca:7054
     caName: ca
     tlsCACerts:
       pem: |
