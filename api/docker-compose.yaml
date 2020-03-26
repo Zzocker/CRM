@@ -9,3 +9,7 @@ services:
       - crm
     ports: 
       - 3000:3000
+    extra_hosts: 
+      - "orderer:10.0.20.25"
+      - "orderer1:10.0.20.25"
+      - "devpeer:10.0.20.59"
