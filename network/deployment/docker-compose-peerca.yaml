@@ -32,8 +32,10 @@ services:
         - devpeer:/var/hyperledger/production
     ports:
       - 7051:7051
-    # extra_hosts: 
-      # - orderer: orderer's private IP
+    extra_hosts: 
+      - "orderer:10.0.20.25"
+      - "orderer1:10.0.20.25"
+      - orderer: 
     networks: 
       - crm
   
@@ -52,19 +54,19 @@ services:
         depends_on:
           - devpeer
   
-  ca:
-        container_name: ca
-        extends:
-            file: ./base/base.yaml
-            service: ca-base
-        environment:
-            - FABRIC_CA_SERVER_CA_NAME=ca
-        volumes:
-            - ./cm.shadesix.in/ca:/ca
-            - data-ca:/etc/hyperledger/fabric-ca-server
-        ports:
-            - 7054:7054
-        networks:
-            - crm
+  # ca:
+  #       container_name: ca
+  #       extends:
+  #           file: ./base/base.yaml
+  #           service: ca-base
+  #       environment:
+  #           - FABRIC_CA_SERVER_CA_NAME=ca
+  #       volumes:
+  #           - ./cm.shadesix.in/ca:/ca
+  #           - data-ca:/etc/hyperledger/fabric-ca-server
+  #       ports:
+  #           - 7054:7054
+  #       networks:
+  #           - crm
   
   

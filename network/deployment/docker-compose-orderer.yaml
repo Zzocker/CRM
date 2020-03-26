@@ -18,8 +18,8 @@ services:
         - ./orderer.com/orderers/orderer/msp:/var/hyperledger/orderer/msp
         - ./orderer.com/orderers/orderer/tls/:/var/hyperledger/orderer/tls
         - orderer:/var/hyperledger/production/orderer
-    # extra_hosts: 
-      # - devpeer: private IP of devpeer
+    extra_hosts: 
+      - "devpeer:10.0.20.59"
     networks: 
        - crm
     ports: 
@@ -35,8 +35,8 @@ services:
         - ./orderer.com/orderers/orderer1/msp:/var/hyperledger/orderer/msp
         - ./orderer.com/orderers/orderer1/tls/:/var/hyperledger/orderer/tls
         - orderer1:/var/hyperledger/production/orderer
-    # extra_hosts: 
-      # - devpeer: private IP of devpeer
+    extra_hosts: 
+      - "devpeer:10.0.20.59"
     networks: 
       - crm
     ports: 

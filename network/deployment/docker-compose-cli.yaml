@@ -22,9 +22,9 @@ services:
       - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cm.shadesix.in/users/Admin@cm.shadesix.in/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
-    # extra_hosts: 
-    #   - devpeer:
-    #   - orderer: both private IP
+    extra_hosts: 
+      - "orderer:10.0.20.25"
+      - "orderer1:10.0.20.25"
     volumes:
         - /var/run/:/host/var/run/
         - ../../chaincode/:/opt/gopath/src/chaincode
