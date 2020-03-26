@@ -68,7 +68,7 @@
 - :heavy_check_mark: Containerization of Node server
 
 :white_large_square: Deployment on AWS
-- :white_large_square: Tested
+- :heavy_check_mark: Tested
 - :white_large_square: Dev running
 
 ## Documentation
