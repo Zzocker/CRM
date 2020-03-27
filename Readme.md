@@ -1,5 +1,12 @@
 # CRM (Customer Relationship Management Software)
 
+A CRM (Customer Relationship Management) is a software that can manage every relationship and interaction with your target customers. The main benefits of a sturdy CRM system are like Improved Relationships, Healthy Pipeline, Improved Communication.
+ 
+This project main to solves the problem of trust between salespeople, administration. Project only provide [API](#APIDocs) for storing details of leads and deal which only can be accessed by the creator or owner of the leads/deals.
+ 
+This project can also be helpful to fabric developers who wants to implement a production-ready fabric(v2.0) on [AWS](#Architecture)
+
+
 >## Table of Contents
 
 - [Installation](#installation)
@@ -157,6 +164,9 @@ type Lead struct {
 	UpdatedDate int64  `json:"updated_date"`
 }
 ```
+### Architecture
+
+![](res/crm.png)
 
 ### APIDocs
 
