@@ -165,6 +165,11 @@ Postman Documentation <a href="https://documenter.getpostman.com/view/7262970/Sz
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/f7a051370809fb91e7a8)
 
 ## Stack
+- Golang
+- nodeJs
+- Docker
+- Hyperledger Fabric
+- AWS (VPC and EC2)
 
 ---
 ## Contributors
