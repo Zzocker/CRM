@@ -19,8 +19,8 @@ services:
         - ./orderer.com/orderers/orderer/tls/:/var/hyperledger/orderer/tls
         - orderer:/var/hyperledger/production/orderer
     extra_hosts: 
-      - "devpeer:10.0.20.59"
-      - "orderer1:10.0.20.195"
+      - "devpeer:10.0.20.133"
+      - "orderer1:10.0.20.133"
     networks: 
        - crm
     ports: 
@@ -37,8 +37,8 @@ services:
         - ./orderer.com/orderers/orderer1/tls/:/var/hyperledger/orderer/tls
         - orderer1:/var/hyperledger/production/orderer
     extra_hosts: 
-      - "devpeer:10.0.20.59"
-      - "orderer:10.0.20.25"
+      # - "devpeer:10.0.20.59"
+      - "orderer:10.0.20.142"
     networks: 
       - crm
     ports: 

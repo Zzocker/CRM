@@ -23,8 +23,8 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     extra_hosts: 
-      - "orderer:10.0.20.25"
-      - "orderer1:10.0.20.195"
+      - "orderer:10.0.20.142"
+      # - "orderer1:10.0.20.195"
     volumes:
         - /var/run/:/host/var/run/
         - ../../chaincode/:/opt/gopath/src/chaincode
