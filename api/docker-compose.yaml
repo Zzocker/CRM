@@ -10,6 +10,6 @@ services:
     ports: 
       - 3000:3000
     extra_hosts: 
-      - "orderer:10.0.20.142"
-      - "orderer1:10.0.20.133"
-      - "devpeer:10.0.20.133"
+      - "orderer:10.0.1.8"
+      - "orderer1:10.0.1.252"
+      - "devpeer:10.0.1.252"
