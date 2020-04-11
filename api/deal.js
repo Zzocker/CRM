@@ -6,17 +6,10 @@ const routes = express.Router()
 routes.post('/createnewdeal',(req,res)=>{
     rbody = req.body
     leadSourceID = rbody.deal_lead_source
-    dname = rbody.deal_name
-    accoutName = rbody.deal_account_name
-    accountID = rbody.deal_aacount_id
-    dealtype = rbody.deal_type
-    amount  = rbody.deal_amount
-    closingDate = rbody.deal_closing_date
-    stage = rbody.deal_stage
-    probability = rbody.deal_probility
+    input = rbody.input
     requester = rbody.requester
 
-    network.contract("invoke",["CreatNewDeal",leadSourceID,dname,accoutName,accountID,dealtype,amount,closingDate,stage,probability,requester],(err,payload)=>{
+    network.contract("invoke",["CreatNewDeal",leadSourceID,input,requester],(err,payload)=>{
         if (err){
             res.status(500).json({error})
         }else{

@@ -5,10 +5,9 @@ const routes = express.Router()
 
 routes.post('/createNewLead',(req,res)=>{
     rbody = req.body
-    lead_lastname=rbody.lead_lastname
-    company=rbody.company
+    input=rbody.input
     requester=rbody.requester
-    network.contract("invoke",["CreateNewLead",lead_lastname,company,requester],(err,payload)=>{
+    network.contract("invoke",["CreateNewLead",input,requester],(err,payload)=>{
         if (err){
             res.status(500).json({error})
         }else{
@@ -22,18 +21,10 @@ routes.post('/createNewLead',(req,res)=>{
 routes.post('/createNewLeadFromContact',(req,res)=>{
    
         const rbody = req.body
-        contactid=rbody.contact_id
-        first_name=rbody.lead_firstname
-        last_name=rbody.lead_lastname
-        mobile = rbody.lead_mobile
-        country=rbody.lead_country
-        state = rbody.lead_state
-        city = rbody.lead_city
-        pincode = rbody.lead_pincode
-        email = rbody.lead_email
+        input=rbody.input
         requester = rbody.requester
 
-        network.contract("invoke",["CreateLeadFromContact",contactid,first_name,last_name,mobile,country,state,city,pincode,email,requester],(err,payload)=>{
+        network.contract("invoke",["CreateLeadFromContact",input,requester],(err,payload)=>{
             if (err){
                 res.status(500).json(err)
             }else{
