@@ -12,17 +12,17 @@ type Lead struct {
 	UpdatedDate int64  `json:"updated_date"`
 	Description string `json:"lead_description"`
 
-	Saluation      string `json:"lead_saluation"`
+	Saluation      string `json:"lead_salutation"`
 	FirstName      string `json:"lead_firstname"`
 	LastName       string `json:"lead_last_name"`
-	JobTitle       string `json:"leadJobtitle"`
+	JobTitle       string `json:"leadjobtitle"`
 	Phone          string `json:"lead_phone"`
 	Mobile         string `json:"lead_mobile"`
 	Email          string `json:"lead_email"`
 	SecondaryEmail string `json:"lead_secondary_email"`
-	Skypid         string `json:"lead_skypid"`
+	Skypid         string `json:"lead_skypeid"`
 	Street         string `json:"lead_street"`
-	Arealoction    string `json:"lead_arealocation"`
+	Arealoction    string `json:"lead_arealoction"`
 	City           string `json:"lead_city"`
 	State          string `json:"lead_state"`
 	Zipcode        string `json:"lead_zipcode"`
@@ -41,6 +41,6 @@ type Lead struct {
 	Rating     string `json:"lead_rating"`
 	CreateBy   string `json:"created_by"`
 	CreateDate int64  `json:"created_date"`
-	ContactID  string `json:"contact_id"`
+	ContactID  int `json:"contact_id"`
 	Owner      string `json:"lead_owner"`
 }

@@ -357,7 +357,7 @@ func (c *Chaincode) UpdateRating(ctx CustomTransactionContextInterface, id, NewU
 	return ctx.GetStub().PutState(id, existing)
 }
 
-func (c *Chaincode) UpdateContactID(ctx CustomTransactionContextInterface, id, NewUp, requester string) error {
+func (c *Chaincode) UpdateContactID(ctx CustomTransactionContextInterface, id string, NewUp int, requester string) error {
 	existing := ctx.GetData()
 	if existing == nil {
 		return Errorf("Key with %v doesn't exists", id)

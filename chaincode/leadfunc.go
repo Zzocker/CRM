@@ -14,19 +14,19 @@ type LeadOutput struct {
 	Count  uint   `json:"counter"`
 }
 
-func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, lname, company, requester string) string {
+func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, input, requester string) string {
 	id := uuid.New().String()
 	createTime := time.Now().Unix()
-	lead := Lead{
-		DocType: LEAD,
-		ID:      id,
-	}
-
+	var lead Lead
+	json.Unmarshal([]byte(input),&lead)
+	// lead := Lead{
+	// 	DocType: LEAD,
+	// 	ID:      id,
+	// }
+	lead.DocType = LEAD
+	lead.ID = id
 	lead.UpdatedBy = requester
 	lead.UpdatedDate = createTime
-
-	lead.LastName = lname
-	lead.Company = company
 
 	lead.CreateBy = requester
 	lead.CreateDate = createTime
@@ -39,29 +39,18 @@ func (c *Chaincode) CreateNewLead(ctx CustomTransactionContextInterface, lname, 
 	// return id
 	return id
 }
-func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface, contactid, fname, lname, mobile, country, state, city, pincode, email, requester string) string {
+func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface, input , requester string) string {
 	id := uuid.New().String()
 	createTime := time.Now().Unix()
-	lead := Lead{
-		DocType: LEAD,
-		ID:      id,
-	}
+	var lead Lead
+	json.Unmarshal([]byte(input),&lead)
+	lead.DocType =LEAD
+	lead.ID=id 
 	lead.UpdatedBy = requester
 	lead.UpdatedDate = createTime
-
-	lead.FirstName = fname
-	lead.LastName = lname
-	lead.Mobile = mobile
-	lead.Country = country
-	lead.State = state
-	lead.City = city
-	lead.Zipcode = pincode
-	lead.Email = email
-
 	lead.CreateBy = requester
 	lead.CreateDate = createTime
 	lead.Owner = requester
-	lead.ContactID = contactid
 
 	leadAsByte, _ := json.Marshal(lead)
 

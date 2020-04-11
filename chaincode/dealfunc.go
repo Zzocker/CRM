@@ -14,7 +14,7 @@ type DealOutput struct {
 	Count  uint   `json:"counter"`
 }
 
-func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSourceID, dname, accountName, accountID, dealType string, amount float64, closingDate, stage, probability, requester string) (string, error) {
+func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSourceID, input, requester string) (string, error) {
 	existing := ctx.GetData()
 	if existing == nil {
 		return "", Errorf("Key with %v doesn't exists", leadSourceID)
@@ -25,25 +25,20 @@ func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSour
 		return "", Errorf("Owner missmatch")
 	}
 	id := uuid.New().String()
-	deal := Deal{
-		DocType:         DEAL,
-		DealID:          id,
-		DealLeadSource:  leadSourceID,
-		DealName:        dname,
-		DealAccountName: accountName,
-		DealAccountID:   accountID,
-		DealType:        dealType,
-		DealAmount:      amount,
-		DealClosingDate: closingDate,
-		DealStage:       stage,
-		DealProbility:   probability,
-		DealOwner:       requester,
-		CreatedBy:       requester,
-		CreatedDate:     time.Now().Unix(),
-		UpdatedBy:       requester,
-		UpdatedDate:     time.Now().Unix(),
+	var deal Deal
+	json.Unmarshal([]byte(input), &lead)
+	if deal.DealLeadID == "" { // here we can place mandatory fields
+		return "", Errorf("Please provide Lead ID to create a new Deal")
 	}
-
+	deal.DocType = DEAL
+	deal.DealID = id
+	deal.DealOwner = requester
+	deal.CreatedBy = requester
+	deal.UpdatedBy = requester
+	t := time.Now().Unix()
+	deal.UpdatedDate = t
+	deal.CreatedDate = t
+	deal.DealLeadID = leadSourceID
 	dealAsByte, _ := json.Marshal(deal)
 
 	return id, ctx.GetStub().PutState(id, dealAsByte)
