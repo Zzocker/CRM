@@ -46,7 +46,7 @@ This project can also be helpful to fabric developers who wants to implement a p
 #####  Install chaincode on peer
 
     > export ORDERER=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/orderer.com/orderers/orderer/msp/tlscacerts/tlsca.orderer.com-cert.pem
-    > peer lifecycle chaincode package crm.tar.gz --label crm -p 
+    > peer lifecycle chaincode package crm.tar.gz --label crm -p chaincode
     > peer lifecycle chaincode install crm.tar.gz
     > export CC_PACKAGE=$(peer lifecycle chaincode queryinstalled -O json | jq .installed_chaincodes | jq .[0] | jq .package_id)
     > peer lifecycle chaincode approveformyorg -C crmchannel -n crm --package-id $CC_PACKAGE -v 1.0 -o orderer:7050 --tls --cafile $ORDERER
