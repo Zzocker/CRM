@@ -60,6 +60,30 @@ func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,
 	return id
 
 }
+<<<<<<< HEAD
+=======
+func (c *Chaincode) UpdateLead(ctx CustomTransactionContextInterface, leadID ,input, requester string) error {
+	leadAsByte := ctx.GetData()
+	if leadAsByte == nil{
+		return Errorf("Lead with ID %v doesn't exists",leadID)
+	}
+	var lead Lead
+	json.Unmarshal(leadAsByte,&lead)
+	if lead.Owner != requester{
+		return Errorf("Owner missmatch")
+	}
+	json.Unmarshal([]byte(input),&lead)
+	
+	lead.UpdatedBy = requester
+	lead.UpdatedDate = time.Now().Unix()
+	lead.Owner = requester
+	leadAsByte,_= json.Marshal(lead)
+
+	return ctx.GetStub().PutState(leadID,leadAsByte)
+}
+
+
+>>>>>>> 3d802a4... ready to take json
 
 func (c *Chaincode) DeleteLead(ctx CustomTransactionContextInterface, id, requester string) error {
 	existing := ctx.GetData()

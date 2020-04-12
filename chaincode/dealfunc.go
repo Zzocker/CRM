@@ -26,7 +26,7 @@ func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSour
 	}
 	id := uuid.New().String()
 	var deal Deal
-	json.Unmarshal([]byte(input), &lead)
+	json.Unmarshal([]byte(input), &deal)
 	deal.DocType = DEAL
 	deal.DealID = id
 	deal.DealOwner = requester
@@ -39,6 +39,23 @@ func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSour
 	dealAsByte, _ := json.Marshal(deal)
 
 	return id, ctx.GetStub().PutState(id, dealAsByte)
+}
+
+func (c *Chaincode) UpdateDeal(ctx CustomTransactionContextInterface, dealID ,input, requester string) error {
+	dealAsByte := ctx.GetData()
+	if dealAsByte == nil{
+		return Errorf("Deal with id %v doesn't exists",dealID)
+	}
+	var deal Deal
+	json.Unmarshal(dealAsByte,&deal)
+	if deal.DealOwner != requester {
+		return Errorf("Owner missmatch")
+	}
+	json.Unmarshal([]byte(input),&deal)
+	deal.UpdatedBy = requester
+	deal.UpdatedDate = time.Now().Unix()
+	dealAsByte, _ = json.Marshal(deal)
+	return ctx.GetStub().PutState(dealID,dealAsByte)
 }
 
 func (c *Chaincode) DeleteDeal(ctx CustomTransactionContextInterface, id, requester string) error {

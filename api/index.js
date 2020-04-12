@@ -2,9 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const lead = require('./lead')
-const leadupdate = require('./leadupdate')
 const deal = require('./deal')
-const dealupdate = require('./dealupdate')
 
 const PORT = "3000"
 
@@ -20,9 +18,12 @@ api.use(bodyParser.urlencoded({ extended: false }))
 api.use(bodyParser.json())
 
 api.use('/lead',lead)
+<<<<<<< HEAD
 api.use('/leadupdate',leadupdate)
+=======
+api.use(cors())
+>>>>>>> 3d802a4... ready to take json
 api.use('/deal',deal)
-api.use('/dealupdate',dealupdate)
 
 api.use(logger)
 
