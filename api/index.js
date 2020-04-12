@@ -1,4 +1,6 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const lead = require('./lead')
 const leadupdate = require('./leadupdate')
 const deal = require('./deal')
@@ -13,12 +15,12 @@ const logger = (req,res,next)=>{
     next()
 }
 
-api.use(express.json())
-
+api.use(bodyParser.urlencoded({ extended: false }))
+api.use(bodyParser.json())
 
 api.use('/lead',lead)
 api.use('/leadupdate',leadupdate)
-
+api.use(cors())
 api.use('/deal',deal)
 api.use('/dealupdate',dealupdate)
 
