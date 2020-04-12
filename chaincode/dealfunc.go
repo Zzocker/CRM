@@ -27,9 +27,6 @@ func (c *Chaincode) CreatNewDeal(ctx CustomTransactionContextInterface, leadSour
 	id := uuid.New().String()
 	var deal Deal
 	json.Unmarshal([]byte(input), &lead)
-	if deal.DealLeadID == "" { // here we can place mandatory fields
-		return "", Errorf("Please provide Lead ID to create a new Deal")
-	}
 	deal.DocType = DEAL
 	deal.DealID = id
 	deal.DealOwner = requester
