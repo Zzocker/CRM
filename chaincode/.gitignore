@@ -1,1 +1,6 @@
 vendor
+dealsetter.go
+leadsetter.go
+dealmodel.go
+leadmodel.go
+go.sum

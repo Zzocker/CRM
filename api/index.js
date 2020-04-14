@@ -18,11 +18,7 @@ api.use(bodyParser.urlencoded({ extended: false }))
 api.use(bodyParser.json())
 
 api.use('/lead',lead)
-<<<<<<< HEAD
-api.use('/leadupdate',leadupdate)
-=======
 api.use(cors())
->>>>>>> 3d802a4... ready to take json
 api.use('/deal',deal)
 
 api.use(logger)

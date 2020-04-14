@@ -60,8 +60,6 @@ func (c *Chaincode) CreateLeadFromContact(ctx CustomTransactionContextInterface,
 	return id
 
 }
-<<<<<<< HEAD
-=======
 func (c *Chaincode) UpdateLead(ctx CustomTransactionContextInterface, leadID ,input, requester string) error {
 	leadAsByte := ctx.GetData()
 	if leadAsByte == nil{
@@ -83,7 +81,6 @@ func (c *Chaincode) UpdateLead(ctx CustomTransactionContextInterface, leadID ,in
 }
 
 
->>>>>>> 3d802a4... ready to take json
 
 func (c *Chaincode) DeleteLead(ctx CustomTransactionContextInterface, id, requester string) error {
 	existing := ctx.GetData()
